@@ -27,19 +27,19 @@ class _PageHome extends State<PageHome> {
   String _checkHours() {
     final now = DateTime.now();
 
-    if (now.hour >= 0 && now.hour <= 5) {
-      return "Boa Madrugada!";
+    List<Map<String, dynamic>> greetings = [
+      {'start': 0, 'end': 5, 'message': 'Boa Madrugada!'},
+      {'start': 6, 'end': 11, 'message': 'Bom dia!'},
+      {'start': 12, 'end': 18, 'message': 'Boa Tarde!'}
+    ];
+
+    for (var greeting in greetings) {
+      if (now.hour >= greeting['start'] && now.hour <= greeting['end']) {
+        return greeting['message'];
+      }
     }
 
-    if (now.hour >= 6 && now.hour <= 11) {
-      return "Bom dia!";
-    }
-
-    if (now.hour >= 12 && now.hour <= 18) {
-      return "Boa Tarde!";
-    }
-
-    return "Boa Noite!";
+    return 'Boa Noite!';
   }
 
   @override
