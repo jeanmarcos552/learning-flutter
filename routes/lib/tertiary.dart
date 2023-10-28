@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routes/layouts.dart';
 import 'package:routes/main.dart';
 
 class TertiaryRoute extends StatelessWidget {
@@ -29,9 +30,9 @@ class TertiaryRoute extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SecondRoute()))
+                            builder: (context) => const Layouts()))
                   },
-                  child: const Text("Second"),
+                  child: const Text("Layouts"),
                 ),
               ),
             ],
