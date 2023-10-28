@@ -13,7 +13,7 @@ class _HomeGameState extends State<HomeGame> {
   var result = "";
   JokenPo jokenpo = JokenPo();
 
-  void chooseOption(String option) {
+  void _chooseOption(String option) {
     setState(() {
       result = jokenpo.play(option);
     });
@@ -48,52 +48,23 @@ class _HomeGameState extends State<HomeGame> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Flexible(
-                child: GestureDetector(
-                  onTap: () => chooseOption("pedra"),
-                  child: CircleAvatar(
-                    backgroundColor:
-                        jokenpo._play1 == "pedra" ? Colors.green : Colors.white,
-                    radius: 90,
-                    child: const Image(
-                      image: AssetImage("assets/images/pedra.png"),
-                      width: 100,
-                      height: 100,
+              for (String item in jokenpo._options)
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () => _chooseOption(item),
+                    child: CircleAvatar(
+                      backgroundColor: jokenpo._play1 == item
+                          ? Colors.green
+                          : Colors.white,
+                      radius: 100,
+                      child:  Image(
+                        image: AssetImage("assets/images/$item.png"),
+                        width: 100,
+                        height: 100,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Flexible(
-                child: GestureDetector(
-                  onTap: () => chooseOption("papel"),
-                  child: CircleAvatar(
-                    backgroundColor:
-                        jokenpo._play1 == "papel" ? Colors.green : Colors.white,
-                    radius: 90,
-                    child: const Image(
-                      image: AssetImage("assets/images/papel.png"),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                child: GestureDetector(
-                  onTap: () => chooseOption("tesoura"),
-                  child: CircleAvatar(
-                    backgroundColor: jokenpo._play1 == "tesoura"
-                        ? Colors.green
-                        : Colors.white,
-                    radius: 90,
-                    child: const Image(
-                      image: AssetImage("assets/images/tesoura.png"),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
           Flexible(
