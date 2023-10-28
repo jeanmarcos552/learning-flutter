@@ -10,15 +10,12 @@ class HomeGame extends StatefulWidget {
 }
 
 class _HomeGameState extends State<HomeGame> {
-  var machine = "";
   var result = "";
+  JokenPo jokenpo = JokenPo();
 
   void chooseOption(String option) {
-    var options = ["pedra", "papel", "tesoura"];
-
     setState(() {
-      machine = options[Random().nextInt(3)];
-      result = JokenPo().play(option, machine);
+      result = jokenpo.play(option);
     });
   }
 
@@ -29,9 +26,24 @@ class _HomeGameState extends State<HomeGame> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          const Text(
-            "Faça sua aposta!",
-            style: TextStyle(color: Colors.black, fontSize: 22),
+          Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Text(
+                  "Escolha da máquina",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 26,
+                  ),
+                ),
+              ),
+              Image(
+                image: AssetImage("assets/images/${jokenpo.imagem}"),
+                width: 100,
+                height: 100,
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,8 +51,9 @@ class _HomeGameState extends State<HomeGame> {
               Flexible(
                 child: GestureDetector(
                   onTap: () => chooseOption("pedra"),
-                  child:  CircleAvatar(
-                    backgroundColor: machine == "pedra" ? Colors.green : Colors.white,
+                  child: CircleAvatar(
+                    backgroundColor:
+                        jokenpo._play1 == "pedra" ? Colors.green : Colors.white,
                     radius: 90,
                     child: const Image(
                       image: AssetImage("assets/images/pedra.png"),
@@ -53,8 +66,9 @@ class _HomeGameState extends State<HomeGame> {
               Flexible(
                 child: GestureDetector(
                   onTap: () => chooseOption("papel"),
-                  child:  CircleAvatar(
-                    backgroundColor: machine == "papel" ? Colors.green : Colors.white,
+                  child: CircleAvatar(
+                    backgroundColor:
+                        jokenpo._play1 == "papel" ? Colors.green : Colors.white,
                     radius: 90,
                     child: const Image(
                       image: AssetImage("assets/images/papel.png"),
@@ -67,8 +81,10 @@ class _HomeGameState extends State<HomeGame> {
               Flexible(
                 child: GestureDetector(
                   onTap: () => chooseOption("tesoura"),
-                  child:  CircleAvatar(
-                    backgroundColor: machine == "tesoura" ? Colors.green : Colors.white,
+                  child: CircleAvatar(
+                    backgroundColor: jokenpo._play1 == "tesoura"
+                        ? Colors.green
+                        : Colors.white,
                     radius: 90,
                     child: const Image(
                       image: AssetImage("assets/images/tesoura.png"),
@@ -81,27 +97,8 @@ class _HomeGameState extends State<HomeGame> {
             ],
           ),
           Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "Jogada da maquina: ",
-                  style: TextStyle(color: Colors.black),
-                ),
-                Text(
-                  "$machine ",
-                  style: const TextStyle(
-                    fontSize: 24,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Flexible(
             child: Text(
-              "Resultado: $result ",
+              result,
               style: const TextStyle(color: Colors.black, fontSize: 28),
             ),
           ),
@@ -112,20 +109,31 @@ class _HomeGameState extends State<HomeGame> {
 }
 
 class JokenPo {
-  String play(String play1, String machine) {
-    if (play1 == machine) {
+  final _options = ["pedra", "papel", "tesoura"];
+  String _play1 = "";
+  String _play2 = "";
+  String _imageMachine = "padrao.png";
+
+  get imagem => _imageMachine;
+
+  String play(String play1) {
+    _play1 = play1;
+    _play2 = _options[Random().nextInt(3)];
+    _imageMachine = "$_play2.png";
+
+    if (play1 == _play2) {
       return "Empate";
     }
 
-    if (play1 == "pedra" && machine == "tesoura") {
+    if (play1 == "pedra" && _play2 == "tesoura") {
       return "Você Ganhou!";
     }
 
-    if (play1 == "papel" && machine == "pedra") {
+    if (play1 == "papel" && _play2 == "pedra") {
       return "Você Ganhou!";
     }
 
-    if (play1 == "tesoura" && machine == "papel") {
+    if (play1 == "tesoura" && _play2 == "papel") {
       return "Você Ganhou!";
     }
 
