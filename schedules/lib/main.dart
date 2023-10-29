@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:schedules/provider/users.dart';
 import 'package:schedules/views/user_list.dart';
 
 void main() {
@@ -10,13 +12,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => Users(),
+        ),
+      ],
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Schedule",
+        title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const UserList());
+        home: const UserList(),
+      ),
+    );
   }
 }
