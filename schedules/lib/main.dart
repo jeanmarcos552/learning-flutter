@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:schedules/provider/users.dart';
-import 'package:schedules/routes/appRoutes.dart';
+import 'package:schedules/routes/app_routes.dart';
 import 'package:schedules/views/user_form.dart';
 import 'package:schedules/views/user_list.dart';
 
@@ -29,7 +29,10 @@ class App extends StatelessWidget {
         ),
         routes: {
           AppRoute.HOME: (_) => const UserList(),
-          AppRoute.USER_FORM: (_) => const UserForm(),
+          AppRoute.USER_FORM: (_) => GestureDetector(
+                onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                child: const UserForm(),
+              ),
         },
       ),
     );

@@ -41,7 +41,7 @@ class Users with ChangeNotifier {
           id: id,
           name: user.name,
           email: user.email,
-          avatarUrl: "",
+          avatarUrl: user.avatarUrl,
         ),
       );
     }

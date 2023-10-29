@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:schedules/models/User.dart';
 import 'package:schedules/provider/users.dart';
-import 'package:schedules/routes/appRoutes.dart';
+import 'package:schedules/routes/app_routes.dart';
 
 class UserTitle extends StatelessWidget {
   final User user;
