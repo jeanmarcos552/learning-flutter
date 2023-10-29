@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:schedules/models/User.dart';
 import 'package:schedules/provider/users.dart';
-import 'package:schedules/routes/app_routes.dart';
+import 'package:schedules/views/user_form.dart';
 
 class UserTitle extends StatelessWidget {
   final User user;
@@ -31,9 +31,14 @@ class UserTitle extends StatelessWidget {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    AppRoute.USER_FORM,
-                    arguments: user,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const UserForm(),
+                      settings: RouteSettings(
+                        arguments: user,
+                      ),
+                    ),
                   );
                 },
                 icon: const Icon(Icons.edit)),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:schedules/components/user_title.dart';
-import 'package:schedules/models/User.dart';
 import 'package:schedules/provider/users.dart';
-import 'package:schedules/routes/app_routes.dart';
+import 'package:schedules/views/user_form.dart';
 
 class UserList extends StatelessWidget {
   const UserList({super.key});
@@ -18,7 +17,12 @@ class UserList extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AppRoute.USER_FORM);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserForm(),
+                ),
+              );
             },
             icon: const Icon(Icons.add),
           )

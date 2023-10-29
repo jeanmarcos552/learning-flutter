@@ -13,6 +13,29 @@ class UserForm extends StatefulWidget {
 class _UserFormState extends State<UserForm> {
   final _form = GlobalKey<FormState>();
   final Map<String, String> _formData = {};
+  final List<String> _fields = ["name", "email", "avatarUrl"];
+  final List<String> _fieldsOptional = ["avatarUrl"];
+  final Map<String, String> _translate = {
+    "name": "Nome Completo",
+    "email": "E-mail",
+    "avatarUrl": "Avatar"
+  };
+
+  void _initFormData(User user) {
+    _formData['id'] = user.id.toString();
+    _formData['name'] = user.name;
+    _formData['email'] = user.email;
+    _formData['avatarUrl'] = user.avatarUrl;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final user = ModalRoute.of(context);
+    if (user?.settings.arguments != null) {
+      _initFormData(user?.settings.arguments as User);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,56 +47,30 @@ class _UserFormState extends State<UserForm> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Nome completo",
+              for (var field in _fields)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    initialValue: _formData[field],
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: _translate[field].toString(),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (_fieldsOptional.contains(field)) {
+                        return null;
+                      }
+
+                      if (value == null || value.isEmpty) {
+                        return "Obrigatório!";
+                      }
+
+                      return null;
+                    },
+                    onSaved: (value) => _formData[field] = value.toString(),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Obrigatório!";
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _formData['name'] = value.toString(),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Email",
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Obrigatório!";
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _formData['email'] = value.toString(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Avatar",
-                  ),
-                  keyboardType: TextInputType.url,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Obrigatório!";
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _formData['avatarUrl'] = value.toString(),
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: ElevatedButton(
