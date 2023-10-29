@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:schedules/models/User.dart';
 import 'package:schedules/provider/users.dart';
+import 'package:schedules/routes/appRoutes.dart';
 
 class UserTitle extends StatelessWidget {
   final User user;
 
   const UserTitle(this.user, {super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
     final Users users = Provider.of(context);
 
     final avatar = user.avatarUrl.isEmpty
@@ -32,7 +31,10 @@ class UserTitle extends StatelessWidget {
           children: [
             IconButton(
                 onPressed: () {
-                  debugPrint("Editar");
+                  Navigator.of(context).pushNamed(
+                    AppRoute.USER_FORM,
+                    arguments: user,
+                  );
                 },
                 icon: const Icon(Icons.edit)),
             IconButton(
