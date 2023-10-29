@@ -29,10 +29,7 @@ class App extends StatelessWidget {
         ),
         routes: {
           AppRoute.HOME: (_) => const UserList(),
-          AppRoute.USER_FORM: (_) => GestureDetector(
-                onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-                child: const UserForm(),
-              ),
+          AppRoute.USER_FORM: (_) => const UserForm(),
         },
       ),
     );

@@ -41,59 +41,62 @@ class _UserFormState extends State<UserForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Formulário")),
-      body: Form(
-        key: _form,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: <Widget>[
-              for (var field in _fields)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    initialValue: _formData[field],
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: _translate[field].toString(),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (_fieldsOptional.contains(field)) {
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Form(
+          key: _form,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: <Widget>[
+                for (var field in _fields)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: TextFormField(
+                      initialValue: _formData[field],
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: _translate[field].toString(),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (_fieldsOptional.contains(field)) {
+                          return null;
+                        }
+
+                        if (value == null || value.isEmpty) {
+                          return "Obrigatório!";
+                        }
+
                         return null;
-                      }
+                      },
+                      onSaved: (value) => _formData[field] = value.toString(),
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_form.currentState!.validate()) {
+                        _form.currentState?.save();
 
-                      if (value == null || value.isEmpty) {
-                        return "Obrigatório!";
-                      }
+                        Provider.of<Users>(context, listen: false).put(
+                          User(
+                            id: _formData['id'],
+                            name: _formData['name']!,
+                            email: _formData['email']!,
+                            avatarUrl: _formData['avatarUrl']!,
+                          ),
+                        );
 
-                      return null;
+                        Navigator.of(context).pop();
+                      }
                     },
-                    onSaved: (value) => _formData[field] = value.toString(),
+                    child: const Text('Salvar'),
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_form.currentState!.validate()) {
-                      _form.currentState?.save();
-
-                      Provider.of<Users>(context, listen: false).put(
-                        User(
-                          id: _formData['id'],
-                          name: _formData['name']!,
-                          email: _formData['email']!,
-                          avatarUrl: _formData['avatarUrl']!,
-                        ),
-                      );
-
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: const Text('Salvar'),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -30,23 +30,49 @@ class UserTitle extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const UserForm(),
-                      settings: RouteSettings(
-                        arguments: user,
-                      ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UserForm(),
+                    settings: RouteSettings(
+                      arguments: user,
                     ),
-                  );
-                },
-                icon: const Icon(Icons.edit)),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.edit),
+            ),
             IconButton(
-                onPressed: () {
-                  users.delete(user);
-                },
-                icon: const Icon(Icons.delete))
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text("Tem certeza que deseja apagar?"),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Não"),
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                        ),
+                        onPressed: () {
+                          users.delete(user);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Sim"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(Icons.delete),
+            )
           ],
         ),
       ),
