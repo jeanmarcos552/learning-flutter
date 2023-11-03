@@ -105,7 +105,6 @@ class _FrasesDiaState extends State<FrasesDia> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -119,10 +118,9 @@ class _FrasesDiaState extends State<FrasesDia> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               const Image(image: AssetImage("assets/images/logo.png")),
-               Text(currFrase),
+              Text(currFrase),
               ElevatedButton(
-                  onPressed: _changeFrase,
-                  child: const Text("Clique")),
+                  onPressed: _changeFrase, child: const Text("Clique")),
             ],
           ),
         ),
