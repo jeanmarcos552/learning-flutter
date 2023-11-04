@@ -1,5 +1,8 @@
 import 'package:expenses/components/card_app.dart';
+import 'package:expenses/models/transaction.dart';
+import 'package:expenses/providers/transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeForm extends StatefulWidget {
   const HomeForm({super.key});
@@ -14,6 +17,8 @@ class _HomeFormState extends State<HomeForm> {
 
   @override
   Widget build(BuildContext context) {
+    final Transactions serviveTransaction = Provider.of(context, listen: false);
+
     return Form(
       key: _form,
       child: CardApp(
@@ -47,6 +52,14 @@ class _HomeFormState extends State<HomeForm> {
                   ElevatedButton(
                     onPressed: () {
                       _form.currentState?.save();
+                      serviveTransaction.put(
+                        Transaction(
+                          date: DateTime.now(),
+                          id: serviveTransaction.lastId() + 1,
+                          name: "Conta de Energia",
+                          value: 100.50,
+                        ),
+                      );
                     },
                     child: const Text("Salvar"),
                   ),
