@@ -6,6 +6,15 @@
       <excludeFolder url="file://$MODULE_DIR$/frases_do_dia/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/frases_do_dia/build" />
       <excludeFolder url="file://$MODULE_DIR$/frases_do_dia/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/schedules/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/schedules/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/schedules/build" />
+      <excludeFolder url="file://$MODULE_DIR$/jokenpo/build" />
+      <excludeFolder url="file://$MODULE_DIR$/jokenpo/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/jokenpo/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/expenses/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/expenses/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/expenses/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

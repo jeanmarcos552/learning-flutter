@@ -19,8 +19,8 @@ class Transactions with ChangeNotifier {
       () => Transaction(
         date: DateTime.now(),
         id: 2,
-        name: "Conta de Luz",
-        value: 100.34,
+        name: "Conta de Água",
+        value: 34.4,
       ),
     );
   }
