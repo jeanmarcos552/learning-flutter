@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 
 class HomeList extends StatelessWidget {
   final List<dynamic>? dataList;
+  final int? paginate;
 
   const HomeList({
     super.key,
     this.dataList,
+    this.paginate,
   });
 
   @override
@@ -20,7 +22,8 @@ class HomeList extends StatelessWidget {
       color: Colors.blue[400]!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: (dataList ?? transactions.lastItensByParam(2)).map((e) {
+        children:
+            (dataList ?? transactions.lastItensByParam(paginate ?? 2)).map((e) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

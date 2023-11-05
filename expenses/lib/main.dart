@@ -26,18 +26,30 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void openForm() {
+      showModalBottomSheet(
+        context: context,
+        builder: (index) => const HomeForm(),
+      );
+    }
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Expenses"),
+          actions: [
+            IconButton(
+              onPressed: () => openForm(),
+              icon: const Icon(Icons.add),
+            ),
+          ],
         ),
         body: const SingleChildScrollView(
           child: Column(
             children: [
               HomeChart(),
-              HomeForm(),
-              HomeList(),
+              HomeList(paginate: 6),
             ],
           ),
         ),
