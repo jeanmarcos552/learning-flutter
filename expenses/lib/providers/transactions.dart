@@ -29,6 +29,19 @@ class Transactions with ChangeNotifier {
     return [..._item.values];
   }
 
+  List<Transaction> lastItensByParam(int? param) {
+    final newList = [..._item.values].reversed.toList();
+    final Map<String, Transaction> newItem = {};
+    final int newParam = param ?? 2;
+
+    for (var element in newList) {
+      if (newItem.length < newParam) {
+        newItem.putIfAbsent(element.id.toString(), () => element);
+      }
+    }
+    return [...newItem.values];
+  }
+
   int count() {
     return _item.values.length;
   }

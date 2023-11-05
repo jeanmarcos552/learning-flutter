@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 class CardApp extends StatelessWidget {
   final Widget? child;
   final Color? color;
+  final double? height;
 
   const CardApp({
     super.key,
     this.child,
     this.color,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
       decoration: BoxDecoration(
         color: color,

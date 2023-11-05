@@ -1,28 +1,32 @@
 import 'package:expenses/components/card_app.dart';
+import 'package:expenses/providers/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomeList extends StatelessWidget {
-  final List<dynamic> dataList;
+  final List<dynamic>? dataList;
 
   const HomeList({
     super.key,
-    required this.dataList,
+    this.dataList,
   });
 
   @override
   Widget build(BuildContext context) {
+    final Transactions transactions = Provider.of(context);
+
     return CardApp(
       color: Colors.blue[400]!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: dataList.map((e) {
+        children: (dataList ?? transactions.lastItensByParam(2)).map((e) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
-                  width: 100,
                   child: Text(
                     "R\$ ${e?.value.toStringAsFixed(2)}",
                     style: const TextStyle(

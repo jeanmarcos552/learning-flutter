@@ -1,3 +1,4 @@
+import 'package:expenses/views/home/home_shart.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -25,24 +26,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Transactions transactions = Provider.of(context);
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Expenses"),
         ),
-        body: Container(
-          color: Colors.grey[100],
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // const HomeChart(),
-                const HomeForm(),
-                HomeList(dataList: transactions.all),
-              ],
-            ),
+        body: const SingleChildScrollView(
+          child: Column(
+            children: [
+              HomeChart(),
+              HomeForm(),
+              HomeList(),
+            ],
           ),
         ),
       ),

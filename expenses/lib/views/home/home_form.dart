@@ -60,6 +60,7 @@ class _HomeFormState extends State<HomeForm> {
                           value: double.parse(_formData['value'].toString()),
                         ),
                       );
+                      _form.currentState?.reset();
                     },
                     child: const Text("Salvar"),
                   ),
