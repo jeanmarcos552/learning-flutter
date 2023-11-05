@@ -33,26 +33,32 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Expenses"),
-          actions: [
-            IconButton(
-              onPressed: () => openForm(),
-              icon: const Icon(Icons.add),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Expenses"),
+        actions: [
+          IconButton(
+            onPressed: () => openForm(),
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: const SingleChildScrollView(
+        child: Column(
+          children: [
+            HomeChart(),
+            HomeList(paginate: 6),
           ],
         ),
-        body: const SingleChildScrollView(
-          child: Column(
-            children: [
-              HomeChart(),
-              HomeList(paginate: 6),
-            ],
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FloatingActionButton(
+            onPressed: () => openForm(),
+            child: const Icon(Icons.add),
           ),
-        ),
+        ],
       ),
     );
   }
