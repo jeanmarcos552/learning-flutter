@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:expenses/providers/transactions.dart';
 import 'package:expenses/views/home/home_form.dart';
 import 'package:expenses/views/home/home_list.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(
@@ -14,8 +15,17 @@ void main() {
           create: (ctx) => Transactions(),
         ),
       ],
-      child: const MaterialApp(
-        home: HomePage(),
+      child: MaterialApp(
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.purple,
+          ),
+          textTheme: TextTheme(
+              displayMedium: GoogleFonts.actor(),
+              bodyLarge: GoogleFonts.openSans()),
+        ),
+        home: const HomePage(),
       ),
     ),
   );

@@ -17,13 +17,22 @@ class HomeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Transactions transactions = Provider.of(context);
+    final data = transactions.lastItensByParam(paginate ?? 2);
+
+    if (dataList == null && data.isEmpty) {
+      return const CardApp(
+        color: Colors.white,
+        child: Center(
+          child: Text("Nenhum cadastro encontrado!"),
+        ),
+      );
+    }
 
     return CardApp(
       color: Colors.blue[400]!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children:
-            (dataList ?? transactions.lastItensByParam(paginate ?? 2)).map((e) {
+        children: (dataList ?? data).map((e) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
