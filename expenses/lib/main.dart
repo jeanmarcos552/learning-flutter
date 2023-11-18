@@ -1,4 +1,4 @@
-import 'package:expenses/views/home/home_shart.dart';
+import 'package:expenses/views/home/home_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
