@@ -1,4 +1,3 @@
-import 'package:expenses/components/card_app.dart';
 import 'package:expenses/providers/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +13,16 @@ class HomeChart extends StatefulWidget {
 }
 
 class _HomeChart extends State<HomeChart> {
+  final daysWeeksTranslate = {
+    "Sat": "Sáb",
+    "Fri": "Sex",
+    "Thu": "Qui",
+    "Wed": "Qua",
+    "Tue": "Ter",
+    "Mon": "Seg",
+    "Sun": "Dom"
+  };
+
   List<Map<String, Object>> get groupedTransactions {
     final Transactions transactions = Provider.of(context);
 
@@ -31,39 +40,76 @@ class _HomeChart extends State<HomeChart> {
         }
       }
 
-      return {"day": DateFormat.E().format(weekday)[0], 'value': totalSum};
+      return {"day": DateFormat.E().format(weekday), 'value': totalSum};
+    });
+  }
+
+  double get weekTotalValue {
+    return groupedTransactions.fold(0.0, (sum, element) {
+      return sum + (element["value"] as double);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return CardApp(
-      color: Colors.purple[400],
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          for (var item in groupedTransactions)
-            Column(
-              children: <Widget>[
-                Text(
-                  item["day"].toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
+    return Card(
+      color: Colors.purple[300],
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: groupedTransactions
+              .map(
+                (tr) => Column(
+                  children: [
+                    Text(
+                      tr["value"].toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    SizedBox(
+                      height: 60,
+                      width: 10,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 1.0,
+                              ),
+                              color: const Color.fromRGBO(220, 220, 220, 1),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                          FractionallySizedBox(
+                            heightFactor:
+                                (tr['value'] as double) / weekTotalValue,
+                            child: Container(
+                                decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(5),
+                            )),
+                          )
+                        ],
+                      ),
+                    ),
+                    Text(
+                      daysWeeksTranslate[tr["day"]].toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    )
+                  ],
                 ),
-                Text(
-                  item["value"].toString(),
-                  style: TextStyle(
-                    color: Colors.grey[100],
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-        ],
+              )
+              .toList(),
+        ),
       ),
     );
   }
