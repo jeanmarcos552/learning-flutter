@@ -33,49 +33,29 @@ class HomeList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: (dataList ?? data).map((e) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  child: Text(
-                    "R\$ ${e?.value.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
+          return ListTile(
+            leading: CircleAvatar(
+              radius: 40,
+              child: FittedBox(
+                child: Text(
+                  e?.value.toStringAsFixed(0),
+                  style: const TextStyle(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          e.name.toString(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        DateFormat("d 'de' MMM 'de' y").format(e.date),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
+            title: Text(
+              e.name,
+              style: TextStyle(
+                color: Colors.grey[100],
+              ),
+            ),
+            subtitle: Text(
+              DateFormat('d MMM y').format(e.date),
+              style: TextStyle(
+                color: Colors.grey[100],
+              ),
+            ),
+            tileColor: Colors.red,
           );
         }).toList(),
       ),

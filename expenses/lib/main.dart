@@ -22,6 +22,10 @@ void main() {
             seedColor: Colors.purple,
           ),
           textTheme: TextTheme(
+              labelLarge: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
               displayMedium: GoogleFonts.actor(),
               bodyLarge: GoogleFonts.openSans()),
         ),

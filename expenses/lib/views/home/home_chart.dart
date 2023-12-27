@@ -41,7 +41,7 @@ class _HomeChart extends State<HomeChart> {
       }
 
       return {"day": DateFormat.E().format(weekday), 'value': totalSum};
-    });
+    }).reversed.toList();
   }
 
   double get weekTotalValue {
